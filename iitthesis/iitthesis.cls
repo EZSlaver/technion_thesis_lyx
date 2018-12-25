@@ -342,7 +342,8 @@
 % Regulations require the Hebrew abstract contain 1,000-2,000 words.
 \iitthesis@thesisdatafield{abstractHebrew}{תקציר החיבור.}
 \iitthesis@thesisdatafield{abbreviationsAndNotation}{Abbreviations and
-notations listing here.} \iitthesis@thesisdatafield{thesisbibstyle}{alpha}
+notations listing here.} 
+%\iitthesis@thesisdatafield{thesisbibstyle}{alpha}
 % the following should be a comma-separate list of relative filenames,
 % e.g. {backmatter/compsci.bib,backmatter/math.bib,specific.bib}
 %\iitthesis@thesisdatafield{thesisbibfiles}{}
@@ -420,7 +421,7 @@ notations listing here.} \iitthesis@thesisdatafield{thesisbibstyle}{alpha}
       % easily navigate to the bibliography
       \pdfbookmark[0]{Bibliography}{bib}%
     \fi
-    \bibliographystyle{\iitthesis@thesisbibstyle}%
+    %\bibliographystyle{\iitthesis@thesisbibstyle}%
     \Realbibliography{\iitthesis@bibliography}%
   \fi%
 }
@@ -695,10 +696,21 @@ notations listing here.} \iitthesis@thesisdatafield{thesisbibstyle}{alpha}
   \pagenumbering{emptynumbering}%
 }
 
+\newenvironment{switchToHebrew}
+{
+  \begingroup
+  \begin{otherlanguage}{hebrew}
+  \setmainfont{\hebrewFont} 
+  \setsansfont{\hebrewFont} 
+  \setmonofont{\hebrewFont}
+ }
+{ 
+  \end{otherlanguage}
+  \endgroup
+}
 
 \newcommand{\makecoverHebrew}{
-
- \begin{otherlanguage}{hebrew}
+ \begin{switchToHebrew}
  \begin{center}
    \vspace*{\stretch{1}}
    \begin{spacing}{1}
@@ -718,7 +730,8 @@ notations listing here.} \iitthesis@thesisdatafield{thesisbibstyle}{alpha}
        לשם מילוי חלקי של הדרישות לקבלת התואר \\
        \iitthesis@degreeHebrew
      \end{center}
-  }}
+  }
+  }
 
   \vspace*{\stretch{2}}
 
@@ -736,11 +749,11 @@ notations listing here.} \iitthesis@thesisdatafield{thesisbibstyle}{alpha}
      \end{center}
   }}
  \end{center}
- \end{otherlanguage}
+ \end{switchToHebrew}
 }
 
 \newcommand{\maketitleHebrew}{
- \begin{otherlanguage}{hebrew}
+ \begin{switchToHebrew}
  \begin{center}
 
   \vspace*{\stretch{1}}
@@ -779,11 +792,11 @@ notations listing here.} \iitthesis@thesisdatafield{thesisbibstyle}{alpha}
      \end{center}
   }
  \end{center}
- \end{otherlanguage}
+ \end{switchToHebrew}
 }
 
 \newcommand{\makeacknowledgementsHebrew}{
-  \begin{otherlanguage}{hebrew}
+  \begin{switchToHebrew}
   \noindent \iitthesis@supervisionHebrew
 
   \ifx\iitthesis@publicationInfoHebrew\@empty
@@ -810,11 +823,11 @@ notations listing here.} \iitthesis@thesisdatafield{thesisbibstyle}{alpha}
     \vspace*{\stretch{1}}
   }
   \noindent  \texthebrew{\iitthesis@financialAcknowledgementHebrew}
-  \end{otherlanguage}
+  \end{switchToHebrew}
 }
 
 \newcommand{\makeabstractHebrew}{
-  \begin{otherlanguage}{hebrew}
+  \begin{switchToHebrew}
   \chapter*{תקציר}
   \addcontentsline{cot}{chapter}{תקציר עברי}
   \selectlanguage{english}
@@ -825,7 +838,7 @@ notations listing here.} \iitthesis@thesisdatafield{thesisbibstyle}{alpha}
 
   \iitthesis@abstractHebrew
 
-  \end{otherlanguage}
+  \end{switchToHebrew}
 }
 
 % ----------------------------------------------------------

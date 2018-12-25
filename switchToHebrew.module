@@ -1,0 +1,19 @@
+#\DeclareLyXModule{HebrewSection}
+#DescriptionBegin
+#
+#DescriptionEnd
+
+# Author: Erez Zinman
+
+Format 66
+
+InsetLayout Flex:Subequations
+  LyxType               custom
+  Decoration            classic
+  LabelString           Hebrew
+  LatexType             Environment
+  LatexName             switchToHebrew
+  MultiPar              true
+  ResetsFont            true
+End
+
