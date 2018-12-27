@@ -20,6 +20,10 @@
 %%                      <ronen@tx.technion.ac.il>
 %%       LyX support changes
 %%
+%% Erez Zinman			<erezinman@gmail.com>
+%%                      <ezslaver@gmail.com>
+%%       LyX 2.3 support changes
+%%
 %% Notes:
 %% - This class has a hard-coded default of using A4 paper,11pt-size font
 %%   for the body text, and 'one-and-a-half' line spacing.
@@ -112,8 +116,6 @@
 %--------------------------------
 
 
-
-
 % The different degrees the Technion awards for which you might
 % be writing a thesis. At the moment, the author(s) are not aware of
 % any difference in the style requirements for theses for
@@ -159,6 +161,14 @@
   \boolfalse{iitthesis-includeack}
 }
 
+\newbool{iitthesis-noPublications}
+\boolfalse{iitthesis-noPublications}
+\DeclareOption{noPublications}{
+  % No "publications" section is written in either english or hebrew
+  \booltrue{iitthesis-noPublications}
+}
+
+
 \newcommand{\iitthesis@geometry}{%
   \geometry{a4paper,nohead,twoside,top=2.5cm,bindingoffset=1.5cm,hmargin=2.5cm}}
 \DeclareOption{fullpageDraft}{
@@ -183,6 +193,7 @@
 \RequirePackage{setspace}
 \RequirePackage{geometry}
 \RequirePackage{atbegshi}
+\RequirePackage{bookmark}
 
 \iitthesis@geometry
 
@@ -235,6 +246,16 @@
   }
 }%
 
+% Set bookmarks of bibliography to be on top of tree
+\bookmarksetup{
+  addtohook={%
+    \ifthenelse{\equal{\bookmarkget{text}}{\bibname}}{
+		\message{This is a bibliography. Ensure it's on root.}
+		\bookmarksetup{startatroot}
+    }{}
+  }
+}
+
 
 %--------------------------------
 
@@ -263,7 +284,6 @@
 }
 
 % see http://tex.stackexchange.com/q/21703/5640
-
 \newif\ifRP%
 \newbox\RPbox%
 \setbox\RPbox\vbox{\vskip1pt}%
@@ -315,10 +335,6 @@
   \long\@namedef{#1}##1{\global\@namedef{iitthesis@#1}{##1}}
 }
 
-
-
-
-
 \iitthesis@thesisdatafield{authorEnglish}{Name of Author}
 \iitthesis@thesisdatafield{authorHebrew}{שם המחבר}
 \iitthesis@thesisdatafield{titleEnglish}{Thesis Title}
@@ -341,9 +357,7 @@
 \iitthesis@thesisdatafield{abstractEnglish}{Abstract of the thesis.}
 % Regulations require the Hebrew abstract contain 1,000-2,000 words.
 \iitthesis@thesisdatafield{abstractHebrew}{תקציר החיבור.}
-\iitthesis@thesisdatafield{abbreviationsAndNotation}{Abbreviations and
-notations listing here.} 
-%\iitthesis@thesisdatafield{thesisbibstyle}{alpha}
+\iitthesis@thesisdatafield{abbreviationsAndNotation}{Abbreviations and notations listing here.} 
 % the following should be a comma-separate list of relative filenames,
 % e.g. {backmatter/compsci.bib,backmatter/math.bib,specific.bib}
 %\iitthesis@thesisdatafield{thesisbibfiles}{}
@@ -416,18 +430,23 @@ notations listing here.}
     \PackageError{iitthesis}{%
       No bibliography files specified; a thesis must contain a bibliography.}
   \else
-    \ifdefined\pdfbookmark
-      % If hyperref is loaded, this will help us to more
-      % easily navigate to the bibliography
-      \pdfbookmark[0]{Bibliography}{bib}%
-    \fi
+    % \ifdefined\pdfbookmark
+      % % If hyperref is loaded, this will help us to more
+      % % easily navigate to the bibliography
+      % \pdfbookmark[0]{Bibliography}{bib}%
+    % \fi
     %\bibliographystyle{\iitthesis@thesisbibstyle}%
+	\message{bibliography bookmark at level \bookmarkget{level}}
     \Realbibliography{\iitthesis@bibliography}%
   \fi%
 }
 
 \newcommand{\makebackmatter}{%
 \selectlanguage{english}%
+
+ % Set the bookmarks of the hebrew-abstract on top of the bookmark tree
+ \bookmarksetup{startatroot, keeplevel}
+ 
  % This _should_ be done AtEndDocument, but that fails for some reason
  \ifdefined\iitthesis@havefigures
   \label{iitthesis:had-figures}
@@ -436,6 +455,8 @@ notations listing here.}
   \label{iitthesis:had-tables}
  \fi
  \clearpage
+
+
  \makebibliography
 
  % Note that the order of pages here will in fact be
@@ -615,15 +636,19 @@ notations listing here.}
 
   \noindent \iitthesis@supervisionEnglish
 
-  \ifx\iitthesis@publicationInfoEnglish\@empty
-  \else
-    \medskip
-    \begin{center}
-    \textbf{\Large \textsc{List of Publications}}
-    \end{center}
-    \noindent \iitthesis@publicationInfoEnglish
-
-  \fi
+  \ifbool{iitthesis-noPublications}{
+	\message{No "English Publications"-inclusion requested!}
+  }{
+	\ifx\iitthesis@publicationInfoEnglish\@empty
+	\else
+		\medskip
+		\begin{center}
+		\textbf{\Large \textsc{List of Publications}}
+		\end{center}
+		\noindent \iitthesis@publicationInfoEnglish
+	\fi
+  }
+  
   \ifbool{iitthesis-includeack}{
     %\vspace*{\stretch{1}}
     \medskip
@@ -799,6 +824,9 @@ notations listing here.}
   \begin{switchToHebrew}
   \noindent \iitthesis@supervisionHebrew
 
+  \ifbool{iitthesis-noPublications}{
+	\message{No "English Publications"-inclusion requested!}
+  } {
   \ifx\iitthesis@publicationInfoHebrew\@empty
   \else
     \medskip
@@ -806,9 +834,8 @@ notations listing here.}
     \textbf{\Large \textsc{רשימת פרסומים}}
     \end{center}
     \noindent \iitthesis@publicationInfoHebrew
-
   \fi
-
+  }
   \ifbool{iitthesis-includeack}{
     %\vspace*{\stretch{1}}
     \medskip

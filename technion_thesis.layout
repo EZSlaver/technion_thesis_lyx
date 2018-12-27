@@ -1,60 +1,19 @@
 #% Do not delete the line below; configure depends on this
 #  \DeclareLaTeXClass[iitthesis/iitthesis]{Technion IIT thesis}
+#  \DeclareCategory{Thesis}
 # Article textclass definition file. Taken from initial LyX source code
 # Author : Matthias Ettrich <ettrich@informatik.uni-tuebingen.de>
 # Transposed by Pascal André <andre@via.ecp.fr>
 # Heavily modifed and enhanced by serveral developers.
 
-Format 35
-Columns                 1
-Sides                   1
-SecNumDepth             2
-TocDepth                2
-DefaultStyle            Standard
+#%Format 35
 
-# This is just to show how to declare the default font.
-# The defaults are exactly those shown here.
-DefaultFont
-	Family                Roman
-	Series                Medium
-	Shape                 Up
-	Size                  Normal
-	Color                 None
-EndFont
-
-
-Style Standard
-	Category              MainText
-	Margin                Static
-	LatexType             Paragraph
-	LatexName             dummy
-	ParIndent             MM
-	ParSkip               0.4
-	Align                 Block
-	AlignPossible         Block, Left, Right, Center
-	LabelType             No_Label
-	# FIXME This ought to be set dynamically.
-	HTMLStyle
-		div.standard {
-			margin-bottom: 2ex;
-		}
-	EndHTMLStyle
-End
-
-#Input stdcharstyles.inc
-#Input stdcustom.inc
-Input stdfloats.inc
-Input stdcounters.inc
-Input stdinsets.inc
-Input stdlists.inc
-Input stdsections.inc
-Input stdstarsections.inc
-Input stdlayouts.inc
-Input stdciteformats.inc
+Format 66
+Input stdclass.inc
+Input numreport.inc
 
 SecNumDepth             3
 TocDepth                3
-
 
 
 Style Part
@@ -213,7 +172,7 @@ Style authorHebrew
 	Align                 Block
 	AlignPossible         Block, Left
 	LabelType             Static
-	LabelString           "המחבר:"
+	LabelString           ":המחבר"
 	Font
 	  Shape               Up
 	  Size                Normal
@@ -523,7 +482,7 @@ Style personalAcknowledgementEnglish
 	ParSep                0
 	Align                 Block
 	LabelType             Centered_Top_Environment
-	LabelString           "personal Acknowledgement English"
+	LabelString           "Personal Acknowledgement English"
 	LabelBottomSep        0.5
 	Font
 	  Size                Small
@@ -675,9 +634,6 @@ Style personalAcknowledgementHebrew
 End
 
 
-
-
-
 Style MakeFrontMatter
 	Category              DocumentParts
 	KeepEmpty             1
@@ -715,6 +671,17 @@ Style MakeBackMatter
 	EndFont
 	HTMLLabel             NONE
 End
+
+Style Bibliography
+	TopSep                4
+	LabelString           "Bibliography"
+	LabelFont
+	  Series              Bold
+	  Size                Huge
+	EndFont
+	TocLevel              0
+End
+
 
 
 

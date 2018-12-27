@@ -6,25 +6,30 @@
 \origin unavailable
 \textclass technion_thesis
 \begin_preamble
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% Add your own packages above this line %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \RequirePackage{polyglossia}
 \setdefaultlanguage{english}
 \setotherlanguage{hebrew}
 \usepackage{fontspec}
 
-%%%%%% Change font here according to guidance %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Change font below according to guidance: %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def \hebrewFont{Alef}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newfontfamily\hebrewfont{\hebrewFont}
+
 \def\maketag@@@#1{\hbox{\m@th\normalfont\LRE{#1}}}
 \def\tagform@#1{\maketag@@@{(\ignorespaces#1\unskip)}}
-
-
-\global\long\def\vec#1{\boldsymbol{\mathbf{#1}}}
 \end_preamble
-\options MSc
+\options noabbrevs, beforeExam, MSc, noPublications
 \use_default_options false
 \begin_modules
 switchToHebrew
@@ -53,7 +58,16 @@ switchToHebrew
 \index_command default
 \paperfontsize default
 \spacing single
-\use_hyperref false
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
 \papersize default
 \use_geometry false
 \use_package amsmath 2
@@ -83,8 +97,6 @@ switchToHebrew
 \end_index
 \secnumdepth 3
 \tocdepth 3
-\paragraph_separation indent
-\paragraph_indentation default
 \is_math_indent 0
 \math_numbering_side default
 \quotes_style english
@@ -108,33 +120,165 @@ status open
 \begin_layout Plain Layout
 
 \series bold
-Edit the Class arguments in order to set your degree-type:
+Edit the Class arguments:
+\end_layout
+
+\begin_layout Plain Layout
+Open Documents->Settings.
+ In the 
+\begin_inset Quotes eld
+\end_inset
+
+Custom
+\begin_inset Quotes erd
+\end_inset
+
+ text-box under 
+\begin_inset Quotes eld
+\end_inset
+
+Class Options
+\begin_inset Quotes erd
+\end_inset
+
+, set the required argumens for this thesis seperated by a comma.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The supported arguments are detailed below:
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
+Degree-type:
+\series default
+ (REQUIRED, 
+\emph on
+default
+\emph default
+: 
+\family typewriter
+MSc
+\family default
+) you must put exactly one of the following values in the
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
 PhD
 \end_layout
 
 \begin_layout Itemize
-MSc 
+
+\family typewriter
+MSc
+\family default
+ 
 \end_layout
 
 \begin_layout Itemize
+
+\family typewriter
 MArch
 \end_layout
 
 \begin_layout Itemize
+
+\family typewriter
 MEcon
 \end_layout
 
 \begin_layout Itemize
+
+\family typewriter
 ME
 \end_layout
 
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Include the Abbrevations part?
+\series default
+ (
+\emph on
+default: 
+\emph default
+No) add 
+\family typewriter
+noabbrevs
+\family default
+ to the argument list to not include the 
+\begin_inset Quotes eld
+\end_inset
+
+Abbreviaions
+\begin_inset Quotes erd
+\end_inset
+
+ part, or remove to include it.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Include the Acknowledgements part?
+\series default
+ (
+\emph on
+default: 
+\emph default
+No) add 
+\family typewriter
+beforeExam
+\family default
+ to the argument list to not include the 
+\begin_inset Quotes eld
+\end_inset
+
+Acknowledgements
+\begin_inset Quotes erd
+\end_inset
+
+ part, or remove to include it.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Include the Publications part?
+\series default
+ (
+\emph on
+default: 
+\emph default
+No) add 
+\family typewriter
+noPublications
+\family default
+ to the argument list to not include the 
+\begin_inset Quotes eld
+\end_inset
+
+Acknowledgements
+\begin_inset Quotes erd
+\end_inset
+
+ part, or remove to include it.
+\end_layout
+
 \begin_layout Plain Layout
-Documents->Settings, In the document class part, Edit the Costum class options
- to be one of the above (DEFAULT: MSc).
- 
+The 
+\emph on
+default
+\emph default
+ class-options that are preconfigured in this template are 
+\family typewriter
+noabbrevs, beforeExam, MSc, noPublications.
 \end_layout
 
 \end_inset
@@ -228,7 +372,8 @@ lyx<VERSION>
 \begin_inset Newline newline
 \end_inset
 
-(note: this is if you installed LyX for all users) 
+(note: this is if you installed \SpecialChar LyX
+ for all users) 
 \end_layout
 
 \end_deeper
@@ -238,7 +383,8 @@ Tools->Reconfigure.
 \end_layout
 
 \begin_layout Itemize
-Restart LyX if prompted.
+Restart \SpecialChar LyX
+ if prompted.
 \end_layout
 
 \begin_layout Plain Layout
@@ -512,6 +658,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset include
 LatexCommand include
+preview true
 filename "front_hebrew.lyx"
 
 \end_inset
@@ -600,7 +747,7 @@ The bibliography file
 LatexCommand bibtex
 btprint "btPrintCited"
 bibfiles "bib/general"
-options "IEEEtranSN"
+options "bibtotoc,IEEEtranSN"
 
 \end_inset
 
